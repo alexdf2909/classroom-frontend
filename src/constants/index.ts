@@ -67,3 +67,4 @@ export const REFRESH_TOKEN_URL = `${BASE_URL}/refresh-token`;
 
 export const CLOUDINARY_UPLOAD_PRESET = import.meta.env
     .VITE_CLOUDINARY_UPLOAD_PRESET;
+
