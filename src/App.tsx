@@ -46,13 +46,13 @@ function App() {
                       name: 'subjects',
                       list: '/subjects',
                       create:'/subjects/create',
-                      show: '/classes/show/:id',
                       meta: { label: 'Subjects', icon: <BookOpen />}
                   },
                   {
                       name: 'classes',
                       list: '/classes',
                       create:'/classes/create',
+                      show: '/classes/show/:id',
                       meta: { label: 'Classes', icon: <GraduationCap />}
                   }
               ]}
