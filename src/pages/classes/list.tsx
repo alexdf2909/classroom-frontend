@@ -11,6 +11,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {CreateButton} from "@/components/refine-ui/buttons/create.tsx";
 import {DataTable} from "@/components/refine-ui/data-table/data-table.tsx";
 import {useList} from "@refinedev/core";
+import {ShowButton} from "@/components/refine-ui/buttons/show.tsx";
 
 const ClassesList = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -43,69 +44,76 @@ const ClassesList = () => {
     ] : [];
 
     const classColumns = useMemo<ColumnDef<ClassDetails>[]>(() => [
-            {
-                id: 'bannerUrl',
-                accessorKey: 'bannerUrl',
-                size: 80,
-                header: () => <p className="column-title ml-2">Banner</p>,
-                cell: ({ getValue }) => (
-                    <div className="flex items-center justify-center ml-2">
-                        <img
-                        src={getValue<string>() ||
-                        '/placeholder-class.png'}
-                        alt="Class Banner"
-                        className="w-10 h-10 rounded object-cover"
-                        />
-                    </div>
-                )
-            },
-            {
-                id: 'name',
-                accessorKey: 'name',
-                size: 200,
-                header: () => <p className="column-title">Class Name</p>,
-                cell: ({ getValue }) => <span className="text-foreground font-medium">{getValue<string>()}</span>,
-            },
-            {
-                id: 'status',
-                accessorKey: 'status',
-                size: 100,
-                header: () => <p className="column-title">Status</p>,
-                cell: ({ getValue }) => {
-                    const status = getValue<string>();
-                    return (
-                        <Badge variant={status === 'active' ? 'default'
-                            : 'secondary'}>
-                            {status.charAt(0).toUpperCase() + status
-                                .slice(1)}
-                        </Badge>
-                    );
-                }
-            },
-            {
-                id: 'subject',
-                accessorKey: 'subject.name',
-                size: 150,
-                header: () => <p className="column-title">Subject</p>,
-                cell: ({ getValue }) => <span
-                className="text-foreground">{getValue<string>()}</span>,
-            },
-            {
-                id: 'teacher',
-                accessorKey: 'teacher.name',
-                size: 150,
-                header: () => <p className="column-title">Teacher</p>,
-                cell: ({ getValue }) => <span
-                    className="text-foreground">{getValue<string>()}</span>,
-            },
-            {
-                id: 'capacity',
-                accessorKey: 'capacity',
-                size: 100,
-                header: () => <p className="column-title">Capacity</p>,
-                cell: ({ getValue }) => <span
-                    className="text-foreground">{getValue<number>()}</span>,
+        {
+            id: 'bannerUrl',
+            accessorKey: 'bannerUrl',
+            size: 80,
+            header: () => <p className="column-title ml-2">Banner</p>,
+            cell: ({ getValue }) => (
+                <div className="flex items-center justify-center ml-2">
+                    <img
+                    src={getValue<string>() ||
+                    '/placeholder-class.png'}
+                    alt="Class Banner"
+                    className="w-10 h-10 rounded object-cover"
+                    />
+                </div>
+            )
+        },
+        {
+            id: 'name',
+            accessorKey: 'name',
+            size: 200,
+            header: () => <p className="column-title">Class Name</p>,
+            cell: ({ getValue }) => <span className="text-foreground font-medium">{getValue<string>()}</span>,
+        },
+        {
+            id: 'status',
+            accessorKey: 'status',
+            size: 100,
+            header: () => <p className="column-title">Status</p>,
+            cell: ({ getValue }) => {
+                const status = getValue<string>();
+                return (
+                    <Badge variant={status === 'active' ? 'default'
+                        : 'secondary'}>
+                        {status.charAt(0).toUpperCase() + status
+                            .slice(1)}
+                    </Badge>
+                );
             }
+        },
+        {
+            id: 'subject',
+            accessorKey: 'subject.name',
+            size: 150,
+            header: () => <p className="column-title">Subject</p>,
+            cell: ({ getValue }) => <span
+            className="text-foreground">{getValue<string>()}</span>,
+        },
+        {
+            id: 'teacher',
+            accessorKey: 'teacher.name',
+            size: 150,
+            header: () => <p className="column-title">Teacher</p>,
+            cell: ({ getValue }) => <span
+                className="text-foreground">{getValue<string>()}</span>,
+        },
+        {
+            id: 'capacity',
+            accessorKey: 'capacity',
+            size: 100,
+            header: () => <p className="column-title">Capacity</p>,
+            cell: ({ getValue }) => <span
+                className="text-foreground">{getValue<number>()}</span>,
+        },
+        {
+            id: 'details',
+            size: 140,
+            header: () => <p className="column-title">Details</p>,
+            cell: ({ row }) => <ShowButton resource="classes" recordItemId={row.original.id} variant="outline"
+            size="sm">View</ShowButton>
+        }
         ], []);
 
     const classTable = useTable<ClassDetails>({
